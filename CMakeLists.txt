@@ -7,7 +7,7 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD_REQUIRED ON)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif(NOT CMAKE_CXX_STANDARD)
-
+#set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/opt/intel/oneapi/mkl/2024.0/lib/cmake/mkl")
 list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/lib/libmkl")
 
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
@@ -15,12 +15,13 @@ set(LIB_DIR "${PROJECT_SOURCE_DIR}/lib")
 
 # Configuration for ALEX
 if (MSVC)
-  set(CMAKE_CXX_FLAGS "/O2 /arch:AVX2 /W1 /EHsc")
+  set(CMAKE_CXX_FLAGS "/O2 /arch:AVX2 /W1 /EHsc -L /opt/intel/oneapi/mkl/2024.0/lib")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
-  set(CMAKE_CXX_FLAGS "-O3 -xHost -ggdb3 -pthread")
+  set(CMAKE_CXX_FLAGS "-O3 -xHost -ggdb3 -pthread -L /opt/intel/oneapi/mkl/2024.0/lib")
 else ()
-  set(CMAKE_CXX_FLAGS "-O3 -march=native -ggdb3 -pthread")
+  set(CMAKE_CXX_FLAGS "-O3 -march=native -ggdb3 -pthread -L /opt/intel/oneapi/mkl/2024.0/lib")
 endif ()
+
 
 include_directories(
   ${SRC_DIR}
@@ -35,6 +36,7 @@ add_executable(benchmark "${SRC_DIR}/benchmark.cc")
 find_package(MKL)
 if (MKL_FOUND)
   include_directories(${MKL_INCLUDE_DIR})
+  message(`hello mkl  ...... ${MKL_LIBRARIES}`)
   target_link_libraries(benchmark ${MKL_LIBRARIES})
 else ()
   message(WARNING "MKL libs not found")
@@ -42,6 +44,8 @@ endif ()
 
 find_package(OpenMP REQUIRED)
 if (OPENMP_FOUND)
+  message(`${OpenMP_C_FLAGS}`)
+  message(`${OpenMP_CXX_FLAGS}`)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 else ()

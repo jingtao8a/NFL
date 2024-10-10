@@ -10,7 +10,7 @@ workload_dir=${root_dir}/workloads
 config_dir=${root_dir}/configs
 
 # Configurations
-algorithms=('nfl' 'afli' 'lipp' 'alex' 'pgm-index' 'btree')
+algorithms=('nfl' 'afli')
 batch_size_list=(256)
 req_dists=('zipf') # 'uniform')
 repeat=3
@@ -24,8 +24,7 @@ key_type=([longitudes-200M]='float64'
           [lognormal-200M]='float64')
 # Configurations for workloads
 read_frac_list=(100 80 20 0)
-test_workloads=('longitudes-200M' 'longlat-200M' 'lognormal-200M' 'ycsb-200M'
-                'books-200M' 'fb-200M' 'wiki-ts-200M')
+test_workloads=('ycsb-200M' 'fb-200M' 'wiki-ts-200M')
 
 if [ ! -d ${result_dir} ];
 then

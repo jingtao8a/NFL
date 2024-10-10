@@ -17,3 +17,4 @@
 /train/models/__pycache__
 /train/models/BNAF/__pycache__
 .vscode
+.uuid
