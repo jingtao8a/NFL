@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(KV-Evaluator VERSION 1.0 LANGUAGES CXX)
+project(KV-Evaluator VERSION 1.0 LANGUAGES  C CXX)
 
 # specify c/c++ standard
 if(NOT CMAKE_CXX_STANDARD)
