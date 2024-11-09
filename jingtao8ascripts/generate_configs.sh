@@ -10,7 +10,7 @@ workload_dir=${root_dir}/workloads
 weights_dir=${root_dir}/flow_weights
 
 # Configurations
-algorithms=('nfl' 'afli')
+algorithms=('nfl')
 batch_size_list=(256)
 req_dists=('zipf')
 flow_para='2D2H2L'
